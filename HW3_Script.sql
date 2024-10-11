@@ -10,7 +10,7 @@ select products.name, products.pid, products.description from products
 WHERE products.pid NOT IN (select pid from contain);
 
 -- Problem 3: How many customers bought SATA drives but not routers.
--- Error
+
 WITH sata_customers AS (
     -- Customers who bought products with 'SATA' in description
     SELECT DISTINCT customers.cid, customers.fullname
@@ -78,7 +78,6 @@ ORDER BY merchants.name ASC, year ASC;
   
   
   -- Problem 7: Which company had the highest annual revenue and in what year?
-  --
   -- With statement to first find total annual sales for all companies.
 WITH revenue AS ( select  merchants.name AS merchant_name, YEAR(place.order_date) AS year, -- selects the name of the merchants and specifically the year of the date.
  ROUND(SUM(sell.price) * COUNT(contain.pid), 2) AS total_sales -- Last part of selecting from merchants to find the total sales of each company per year. It does this by counting the amount of times a product is ordered, and multiplying it by the price.
@@ -101,7 +100,6 @@ GROUP BY orders.shipping_method
 ORDER BY average ASC; -- Ordered in ascending order so the cheapest option is first.
 
 -- Problem 9: What is the best sold ($) category for each company?
--- Error?
 -- select statement displays merchant_name, category, and total sales via contain.pid and price, rounded.
 WITH counted AS (
     -- Count how many times each product was ordered
