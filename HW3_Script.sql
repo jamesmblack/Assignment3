@@ -1,3 +1,32 @@
+-- Added constraints
+ALTER TABLE products
+ADD CONSTRAINT chk_product_name 
+CHECK (name IN ('Printer', 'Ethernet Adapter', 'Desktop', 'Hard Drive', 'Laptop', 'Router', 'Network Card', 'Super Drive', 'Monitor'));
+
+ALTER TABLE products
+ADD CONSTRAINT chk_category 
+CHECK (category IN ('Peripheral', 'Networking', 'Computer'));
+
+ALTER TABLE sell
+ADD CONSTRAINT chk_price 
+CHECK (price BETWEEN 0 AND 100000);
+
+ALTER TABLE sell
+ADD CONSTRAINT chk_quantity_available 
+CHECK (quantity_available BETWEEN 0 AND 1000);
+
+ALTER TABLE orders
+ADD CONSTRAINT chk_shipping_method 
+CHECK (shipping_method IN ('UPS', 'FedEx', 'USPS'));
+
+ALTER TABLE orders
+ADD CONSTRAINT chk_shipping_cost 
+CHECK (shipping_cost BETWEEN 0 AND 500);
+
+ALTER TABLE place
+ADD CONSTRAINT chk_order_date 
+CHECK (order_date >= '2000-01-01' AND order_date <= NOW());
+
 -- Problem 1: Find the sellers and product names that are out of stock.
 select products.name, merchants.name from sell
 JOIN products ON sell.pid=products.pid
